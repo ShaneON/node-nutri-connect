@@ -2,7 +2,7 @@ const express = require('express');
 const app = express();
 // const ObjectID = require('mongodb').ObjectID;
 const authRoute = require('./routes/auth');
-const postRoute = require('./routes/posts');
+const userRoute = require('./routes/users');
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 
@@ -21,15 +21,15 @@ app.use((req, res, next) => {
     res.header('Access-Control-Allow-Headers', '*')
     res.header('Access-Control-Allow-Methods', '*')
     next();
-})
+});
 
 app.use(express.json());
-app.use('/api/user', authRoute);
-app.use('/api/posts', postRoute);
+app.use('/api/auth', authRoute);
+app.use('/api/users', userRoute);
 
 app.listen(3000, function() {
     console.log('listening on 3000')
-})
+});
 
 // MongoClient.connect(connectionString, (err, client) => {
 //     if (err) return console.error(err)

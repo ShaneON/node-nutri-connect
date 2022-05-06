@@ -40,7 +40,7 @@ router.post('/login', async (req, res) => {
     if (!validPass) return res.status(400).send('Password is not found');
 
     const token = jwt.sign({_id: user._id}, process.env.TOKEN_SECRET);
-    res.header('auth-token', token).send(JSON.stringify(token));
+    res.header('auth-token', token).send({ token: JSON.stringify(token), id: user._id });
 });
 
 module.exports = router;

@@ -1,3 +1,4 @@
+const number = require('@hapi/joi/lib/types/number');
 const mongoose = require('mongoose');
 
 const userSchema = new mongoose.Schema({
@@ -22,6 +23,15 @@ const userSchema = new mongoose.Schema({
     date: {
         type: Date,
         default: Date.now
+    },
+    kcalDaily: {
+        type: number,
+        default: 2000,
+        required: false
+    },
+    weight: {
+        type: number,
+        required: false
     }
 });
 
