@@ -3,12 +3,19 @@ const verify = require('./verifyToken');
 const Food = require('../model/Food');
 
 router.get('/', verify, async (req, res) => {
-    const food = await Food.find({
-      userId: req.query.userId, 
-      dayOfYear: req.query.dayOfYear
-    });
-    res.send(food);
+  const food = await Food.find({
+    userId: req.query.userId, 
+    dayOfYear: req.query.dayOfYear
+  });
+  res.send(food);
 });
+
+router.delete('/:id', verify, async (req, res) => {
+  const deletedFood = await Food.deleteOne({
+    _id: req.params.id
+  });
+  res.send(deletedFood);
+})
 
 router.post('/', verify, async (req, res) => {
   const food = new Food({
@@ -27,7 +34,20 @@ router.post('/', verify, async (req, res) => {
 
   try {
     const savedFood = await food.save();
-    res.send({food: food._id});
+    res.send({
+      _id: savedFood._id,
+      name: savedFood.name,
+      userId: savedFood.userId,
+      kcal: savedFood.kcal,
+      protein: savedFood.protein,
+      fat: savedFood.fat,
+      carbs: savedFood.carbs,
+      sodium: savedFood.sodium,
+      fiber: savedFood.fiber,
+      serving: savedFood.serving,
+      meal: savedFood.meal,
+      dayOfYear: savedFood.dayOfYear
+    });
   } catch(err) {
     res.status(400).send(err);
   }
