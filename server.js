@@ -3,6 +3,7 @@ const app = express();
 // const ObjectID = require('mongodb').ObjectID;
 const authRoute = require('./routes/auth');
 const userRoute = require('./routes/users');
+const foodRoute = require('./routes/foods');
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 
@@ -26,6 +27,7 @@ app.use((req, res, next) => {
 app.use(express.json());
 app.use('/api/auth', authRoute);
 app.use('/api/users', userRoute);
+app.use('/api/foods', foodRoute);
 
 app.listen(3000, function() {
     console.log('listening on 3000')
